@@ -1,10 +1,11 @@
-# CoffeeShopAPI
+### CoffeeShopAPI
 
 CoffeeShopAPI is a simple Web API built with .NET 9.0 for managing coffee shop data, including information about shop locations, hours, and ratings. This API allows users to interact with coffee shop data through various HTTP endpoints.
 
 ## Table of Contents
 
 - [Installation](#installation)
+- [EF Core and SQLite Integration](#ef-core-and-sqlite-integration)
 - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
 - [Testing the API](#testing-the-api)
@@ -18,9 +19,31 @@ CoffeeShopAPI is a simple Web API built with .NET 9.0 for managing coffee shop d
 - **.NET 9.0 SDK**: Required to build the application. You can download it from the official .NET website:
   [Download .NET SDK](https://dotnet.microsoft.com/download/dotnet).
 
-- **SQLite**: The application uses SQLite as the database for storing coffee shop data.
+- **SQLite**: While the application uses SQLite for the database, there is no need for users to install SQLite manually. EF Core with the `Microsoft.EntityFrameworkCore.Sqlite` package will automatically handle the database connection and creation for you.
 
-### Cloning the Repository
+- **Entity Framework Core**: This application uses Entity Framework Core (EF Core) to manage database interactions. EF Core will automatically handle database migrations and the creation of the SQLite database file if it doesn’t already exist. The connection string used to connect to the database is configured in the application’s settings.
+
+## EF Core and SQLite Integration
+
+The application uses **Entity Framework Core (EF Core)** to interact with a **SQLite** database for storing coffee shop data. EF Core automatically manages the creation and updates of the SQLite database through migrations, so you don’t need to manually install or manage SQLite on your system.
+
+Once you clone the repository and restore dependencies, you can run the following commands to create the initial database and apply migrations:
+
+1. Add migrations (if needed):
+   ```bash
+   dotnet ef migrations add InitialCreate
+   ```
+
+2. Update the database (apply migrations):
+   ```bash
+   dotnet ef database update
+   ```
+
+This will create the SQLite database file and set up the schema for coffee shop data.
+
+---
+
+## Cloning the Repository
 
 1. Clone the repository to your local machine:
    ```bash
@@ -32,37 +55,28 @@ CoffeeShopAPI is a simple Web API built with .NET 9.0 for managing coffee shop d
    cd CoffeeShopAPI
    ```
 
-### Install Dependencies
-
-Run the following command to restore the necessary dependencies:
-
-```bash
-dotnet restore
-```
-
----
+3. Run the following command to restore the necessary dependencies:
+   ```bash
+   dotnet restore
+   ```
 
 ## Running the Application
 
 ### Step 1: Publish the Application (for Standalone Executable)
 
-To publish the application for multiple platforms, use the publish.sh script. This script will automatically handle the publishing process for Windows, Linux, and macOS and place all the executable files inside the exes folder.
+To publish the application for multiple platforms, use the `publish.sh` script. This script will automatically handle the publishing process for Windows, Linux, and macOS and place all the executable files inside the `exes` folder.
 
 - **For macOS or Linux**:
   ```bash
   chmod +x publish.sh
   ```
 
-- **Run the publish.sh script:**:
+- **Run the publish.sh script**:
   ```bash
-   ./publish.sh
+  ./publish.sh
   ```
 
 The publishing process will generate standalone executable files for different platforms and compress them into the `/exes` folder for easy distribution.
-
-Here’s an enhanced version of your instructions:
-
----
 
 ### Step 2: Run the Executable
 
@@ -130,30 +144,73 @@ Creates a new coffee shop.
 
 Once the application is running, you can test the API using tools like [Postman](https://www.postman.com/) , `curl` or directly via a browser.
 
-## Using Curl
+### Using Curl
 
-**Example `curl` request to create a new coffee shop**:
+#### 1. **GET Request** (Retrieve all coffee shops):
 
 ```bash
-curl -X POST https://localhost:5001/api/coffeeshops \
-     -H "Content-Type: application/json" \
-     -d '{
-           "name": "Cafe Java",
-           "openingTime": "08:00:00",
-           "closingTime": "20:00:00",
-           "location": "123 Java St, Java City",
-           "rating": 4.5
-         }'
+curl --location --request GET 'http://localhost:5001/api/coffeeshops' \
+--header 'Content-Type: application/json'
 ```
 
-## Accessing the API via Browser
+#### 2. **POST Request** (Create a new coffee shop):
+
+```bash
+curl --location --request POST 'http://localhost:5001/api/coffeeshops' \
+--header 'Content-Type: application/json' \
+--data '{
+  "name": "Cafe Java",
+  "openingTime": "08:00:00",
+  "closingTime": "20:00:00",
+  "location": "123 Java St, Java City",
+  "rating": 4.5
+}'
+```
+
+#### 3. **GET Request** (Retrieve a coffee shop by ID):
+
+```bash
+curl --location --request GET 'http://localhost:5001/api/coffeeshops/2' \
+--header 'Content-Type: application/json'
+```
+
+Replace `2` with the desired coffee shop ID.
+
+#### 4. **PUT Request** (Update a coffee shop):
+
+```bash
+curl --location --request PUT 'http://localhost:5001/api/coffeeshops/2' \
+--header 'Content-Type: application/json' \
+--data '{
+  "name": "Updated Cafe Java",
+  "openingTime": "09:00:00",
+  "closingTime": "21:00:00",
+  "location": "456 Updated St, Java City",
+  "rating": 4.7
+}'
+```
+
+#### 5. **DELETE Request** (Delete a coffee shop):
+
+```bash
+curl --location --request DELETE 'http://localhost:5001/api/coffeeshops/2' \
+--header 'Content-Type: application/json'
+```
+
+### Accessing the API via Browser
 
 You can directly access the API by visiting:
 
-```bash
-https://localhost:5001/api/coffeeshops
-http://localhost:5001/api/coffeeshops/2
-```
+- **To retrieve all coffee shops**:
+  ```bash
+  http://localhost:5001/api/coffeeshops
+  ```
 
+- **To retrieve a specific coffee shop by ID**:
+  ```bash
+  http://localhost:5001/api/coffeeshops/{id}
+  ```
+
+Replace `{id}` with the actual coffee shop ID.
 
 ---

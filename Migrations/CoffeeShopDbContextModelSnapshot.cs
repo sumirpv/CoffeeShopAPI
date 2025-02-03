@@ -43,6 +43,35 @@ namespace CoffeeShopAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("coffee_shops", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClosingTime = new TimeSpan(0, 22, 0, 0, 0),
+                            Location = "New York, NY",
+                            Name = "Central Perk",
+                            OpeningTime = new TimeSpan(0, 8, 0, 0, 0),
+                            Rating = 4.5m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClosingTime = new TimeSpan(0, 21, 0, 0, 0),
+                            Location = "San Francisco, CA",
+                            Name = "Java House",
+                            OpeningTime = new TimeSpan(0, 15, 30, 0, 0),
+                            Rating = 4.0m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClosingTime = new TimeSpan(0, 18, 0, 0, 0),
+                            Location = "Los Angeles, CA",
+                            Name = "The Coffee Bean",
+                            OpeningTime = new TimeSpan(0, 6, 0, 0, 0),
+                            Rating = 4.7m
+                        });
                 });
 #pragma warning restore 612, 618
         }

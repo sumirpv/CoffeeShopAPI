@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using CoffeeShopAPI.Models;
+using CoffeeShopAPI.Services;
 
 namespace CoffeeShopAPI
 {
