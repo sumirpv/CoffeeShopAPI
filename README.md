@@ -8,7 +8,6 @@ CoffeeShopAPI is a simple Web API built with .NET 9.0 for managing coffee shop d
 - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
 - [Testing the API](#testing-the-api)
-- [License](#license)
 
 ---
 
@@ -25,7 +24,7 @@ CoffeeShopAPI is a simple Web API built with .NET 9.0 for managing coffee shop d
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/yourusername/CoffeeShopAPI.git
+   git clone https://github.com/sumirpv/CoffeeShopAPI
    ```
 
 2. Navigate into the project directory:
@@ -47,28 +46,30 @@ dotnet restore
 
 ### Step 1: Publish the Application (for Standalone Executable)
 
-If you want to run the application as a standalone executable, use the `dotnet publish` command.
+To publish the application for multiple platforms, use the publish.sh script. This script will automatically handle the publishing process for Windows, Linux, and macOS and place all the executable files inside the exes folder.
 
-- **For Windows**:
+- **For macOS or Linux**:
   ```bash
-  dotnet publish -c Release -r win-x64 --self-contained
+  chmod +x publish.sh
   ```
 
-- **For Linux**:
+- **Run the publish.sh script:**:
   ```bash
-  dotnet publish -c Release -r linux-x64 --self-contained
+   ./publish.sh
   ```
 
-- **For macOS**:
-  ```bash
-  dotnet publish -c Release -r osx-x64 --self-contained
-  ```
+The publishing process will generate standalone executable files for different platforms and compress them into the `/exes` folder for easy distribution.
 
-This will generate the executable in the `bin/Release/net9.0/<platform>/publish` directory.
+Here’s an enhanced version of your instructions:
+
+---
 
 ### Step 2: Run the Executable
 
-After publishing the application, navigate to the `publish` folder and run the executable.
+After publishing the application, follow these steps:
+
+1. Navigate to the `dist` folder where the compressed file is located.
+2. Decompress the file and open the extracted folder.
 
 - **For Windows**:
   Double-click the `CoffeeShopAPI.exe` file or run it from the command prompt:
@@ -77,7 +78,7 @@ After publishing the application, navigate to the `publish` folder and run the e
   ```
 
 - **For Linux/macOS**:
-  Open a terminal and run:
+  Open a terminal, navigate to the folder, and run:
   ```bash
   ./CoffeeShopAPI
   ```
@@ -127,7 +128,9 @@ Creates a new coffee shop.
 
 ## Testing the API
 
-You can test the API using tools like [Postman](https://www.postman.com/) or `curl`.
+Once the application is running, you can test the API using tools like [Postman](https://www.postman.com/) , `curl` or directly via a browser.
+
+## Using Curl
 
 **Example `curl` request to create a new coffee shop**:
 
@@ -143,13 +146,14 @@ curl -X POST https://localhost:5001/api/coffeeshops \
          }'
 ```
 
+## Accessing the API via Browser
+
+You can directly access the API by visiting:
+
+```bash
+https://localhost:5001/api/coffeeshops
+http://localhost:5001/api/coffeeshops/2
+```
+
+
 ---
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-This README should help users understand how to install and run the application, as well as provide details on the API endpoints they can interact with.
-

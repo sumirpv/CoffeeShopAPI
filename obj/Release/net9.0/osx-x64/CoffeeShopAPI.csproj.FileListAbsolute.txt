@@ -446,3 +446,4 @@
 /Users/sumitha/CoffeeShopAPI/obj/Release/net9.0/osx-x64/CoffeeShopAPI.pdb
 /Users/sumitha/CoffeeShopAPI/obj/Release/net9.0/osx-x64/CoffeeShopAPI.genruntimeconfig.cache
 /Users/sumitha/CoffeeShopAPI/obj/Release/net9.0/osx-x64/ref/CoffeeShopAPI.dll
+/Users/sumitha/CoffeeShopAPI/obj/Release/net9.0/osx-x64/CoffeeShopAPI.sourcelink.json
